@@ -15,6 +15,7 @@ import com.emil.github.MainActivityViewModel
 import com.emil.github.databinding.FragmentUsersBinding
 import com.emil.github.databinding.ItemUserDataBinding
 import com.emil.github.ext.getVmFactory
+import com.emil.github.network.LoadApiStatus
 import com.emil.github.ui.MainFragmentDirections
 
 class UsersFragment : Fragment() {
@@ -67,6 +68,16 @@ class UsersFragment : Fragment() {
             userDetail?.let {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(it))
                 viewModel.navToDetailDone()
+            }
+        })
+
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when(it) {
+                    LoadApiStatus.LOADING -> binding.progressBar.visibility = View.VISIBLE
+                    LoadApiStatus.DONE -> binding.progressBar.visibility = View.GONE
+                    LoadApiStatus.ERROR -> binding.progressBar.visibility = View.GONE
+                }
             }
         })
     }

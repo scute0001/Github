@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import com.emil.github.R
 import com.emil.github.databinding.FragmentMyInfoBinding
 import com.emil.github.ext.getVmFactory
+import com.emil.github.network.LoadApiStatus
 import com.emil.github.util.GithubLoginManager
 import java.util.concurrent.TimeUnit
 
@@ -33,10 +34,19 @@ class MyInfoFragment : Fragment() {
         binding = FragmentMyInfoBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
+        setupClickListener()
+        setupObserver()
+
+        return binding.root
+    }
+
+    private fun setupClickListener() {
         binding.btnGithubLogin.setOnClickListener {
             setupGithubWebViewDialog()
         }
+    }
 
+    private fun setupObserver() {
         viewModel.myInfo.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.user = it
@@ -48,7 +58,15 @@ class MyInfoFragment : Fragment() {
             }
         })
 
-        return binding.root
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when(it) {
+                    LoadApiStatus.LOADING -> binding.progressBar.visibility = View.VISIBLE
+                    LoadApiStatus.DONE -> binding.progressBar.visibility = View.GONE
+                    LoadApiStatus.ERROR -> binding.progressBar.visibility = View.GONE
+                }
+            }
+        })
     }
 
     @SuppressLint("SetJavaScriptEnabled")
