@@ -1,9 +1,6 @@
 package com.emil.github.data.source
 
-import com.emil.github.data.ResultData
-import com.emil.github.data.User
-import com.emil.github.data.UserListData
-import com.emil.github.data.UserListDataBean
+import com.emil.github.data.*
 
 interface GithubDataSource {
     suspend fun getUsers(since: Int): ResultData<UserListDataBean>
@@ -11,4 +8,8 @@ interface GithubDataSource {
     suspend fun getUserDetail(url: String): ResultData<User>
 
     suspend fun getMoreUser(url: String): ResultData<UserListDataBean>
+
+    suspend fun getGithubToken(url: String): ResultData<GithubLoginToken>
+
+    suspend fun getMyInfo(token: String): ResultData<User>
 }

@@ -12,6 +12,7 @@ data class User(
     val location: String? = "",
     val url: String = "",
     val name: String? = "",
+    val email: String? = "",
     val blog: String? = "",
     val followers: Int? = 0,
     val following: Int? = 0

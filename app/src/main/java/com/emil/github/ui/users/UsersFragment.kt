@@ -17,12 +17,6 @@ import com.emil.github.databinding.ItemUserDataBinding
 import com.emil.github.ext.getVmFactory
 import com.emil.github.ui.MainFragmentDirections
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [UsersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UsersFragment : Fragment() {
     lateinit var binding: FragmentUsersBinding
     lateinit var adapter: UsersItemAdapter

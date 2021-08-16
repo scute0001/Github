@@ -5,6 +5,7 @@
     <dimen name="margin_detail">48dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="size_pic">56dp</dimen>
+    <dimen name="size_pic_small">24dp</dimen>
     <dimen name="size_pic_large">128dp</dimen>
     <dimen name="size_icon_close">48dp</dimen>
 </resources>

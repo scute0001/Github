@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.emil.github.MainActivityViewModel
 import com.emil.github.data.source.GithubRepository
+import com.emil.github.ui.myinfo.MyInfoViewModel
 import com.emil.github.ui.users.UsersViewModel
 import java.lang.IllegalArgumentException
 
@@ -18,6 +19,8 @@ class ViewModelFactory constructor(
                     MainActivityViewModel()
                 isAssignableFrom(UsersViewModel::class.java) ->
                     UsersViewModel(githubRepository)
+                isAssignableFrom(MyInfoViewModel::class.java) ->
+                    MyInfoViewModel(githubRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

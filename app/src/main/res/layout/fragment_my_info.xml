@@ -1,14 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.myinfo.MyInfoFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="user"
+            type="com.emil.github.data.User" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="myinfo" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_github_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.myinfo.MyInfoFragment"
+            android:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_github_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/shape_github_login_logo"
+                android:layout_marginStart="@dimen/margin_detail"
+                android:layout_marginEnd="@dimen/margin_detail">
+
+                <ImageView
+                    android:id="@+id/img_github_login"
+                    android:layout_width="@dimen/size_pic"
+                    android:layout_height="@dimen/size_pic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:src="@drawable/icon_github_login_128w"/>
+
+                <TextView
+                    android:id="@+id/text_github_login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/whiteF0F0F0"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:text="Github Login"
+                    android:layout_marginStart="@dimen/margin_small"
+                    app:layout_constraintStart_toEndOf="@id/img_github_login"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_my_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <View
+                android:id="@+id/view_top"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/dark_blue"
+                app:layout_constraintBottom_toTopOf="@id/guideline_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_myinfo_github_logo"
+                android:layout_width="@dimen/size_pic"
+                android:layout_height="@dimen/size_pic"
+                android:src="@drawable/icon_github_login_128w"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_top"
+                app:layout_constraintEnd_toStartOf="@+id/text_myinfo_title"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_myinfo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="GitHub DOCS"
+                android:textColor="@color/whiteF0F0F0"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/guideline_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/img_myinfo_github_logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.3" />
+
+            <ImageView
+                android:id="@+id/img_myinfo_pic"
+                android:layout_width="@dimen/size_pic_large"
+                android:layout_height="@dimen/size_pic_large"
+                android:layout_marginStart="@dimen/margin_normal"
+                app:layout_constraintBottom_toBottomOf="@id/guideline_top"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guideline_top"
+                app:imageDetailUrl="@{user.avatarUrl}"/>
+
+            <TextView
+                android:id="@+id/text_myinfo_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_myinfo_pic"
+                app:setString="@{user.name}"/>
+
+            <TextView
+                android:id="@+id/text_myinfo_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_myinfo_name"
+                app:setString="@{user.login}"/>
+
+            <ImageView
+                android:id="@+id/img_myinfo_icon_follow"
+                android:layout_width="@dimen/size_pic_small"
+                android:layout_height="@dimen/size_pic_small"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:src="@drawable/icon_follow_user_24"
+                app:layout_constraintEnd_toStartOf="@+id/text_myinfo_followers_count"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_myinfo_login"
+                android:tint="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/text_myinfo_followers_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.followers.toString()}"
+                android:layout_marginStart="@dimen/margin_small"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/img_myinfo_icon_follow"
+                app:layout_constraintEnd_toStartOf="@+id/text_followers_title"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/img_myinfo_icon_follow"
+                app:layout_constraintTop_toTopOf="@id/img_myinfo_icon_follow" />
+
+            <TextView
+                android:id="@+id/text_followers_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/followers"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@id/text_myinfo_followers_count"
+                app:layout_constraintEnd_toStartOf="@+id/text_myinfo_followings_count"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_myinfo_followers_count"
+                app:layout_constraintTop_toTopOf="@id/text_myinfo_followers_count" />
+
+            <TextView
+                android:id="@+id/text_myinfo_followings_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.following.toString()}"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/text_followers_title"
+                app:layout_constraintEnd_toStartOf="@+id/text_followings_title"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_followers_title"
+                app:layout_constraintTop_toTopOf="@id/text_followers_title" />
+
+            <TextView
+                android:id="@+id/text_followings_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/following"
+                app:layout_constraintBottom_toBottomOf="@id/text_myinfo_followings_count"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_myinfo_followings_count"
+                app:layout_constraintTop_toTopOf="@id/text_myinfo_followings_count" />
+
+            <ImageView
+                android:id="@+id/img_icon_mail"
+                android:layout_width="@dimen/size_pic_small"
+                android:layout_height="@dimen/size_pic_small"
+                app:layout_constraintTop_toBottomOf="@id/img_myinfo_icon_follow"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:src="@drawable/icon_mail_24"
+                android:tint="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/text_myinfo_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintTop_toTopOf="@id/img_icon_mail"
+                app:layout_constraintBottom_toBottomOf="@id/img_icon_mail"
+                app:layout_constraintStart_toEndOf="@id/img_icon_mail"
+                android:layout_marginStart="@dimen/margin_small"
+                app:setString="@{user.email}"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

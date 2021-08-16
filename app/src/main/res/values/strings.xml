@@ -5,4 +5,6 @@
     <string name="no_data">NO DATA</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="followers">&#160;followers‧&#160;</string>
+    <string name="following">&#160;following‧&#160;</string>
 </resources>

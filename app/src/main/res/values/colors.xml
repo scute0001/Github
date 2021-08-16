@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#666666</color>
+    <color name="colorPrimaryDark">#888888</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="whiteF0F0F0">#F0F0F0</color>
+    <color name="color_github">#161415</color>
+    <color name="dark_blue">#0E2549</color>
 </resources>

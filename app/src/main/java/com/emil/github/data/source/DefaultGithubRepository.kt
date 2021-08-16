@@ -1,9 +1,6 @@
 package com.emil.github.data.source
 
-import com.emil.github.data.ResultData
-import com.emil.github.data.User
-import com.emil.github.data.UserListData
-import com.emil.github.data.UserListDataBean
+import com.emil.github.data.*
 
 class DefaultGithubRepository(private val githubRemoteDataSource: GithubDataSource
 ): GithubRepository {
@@ -17,5 +14,13 @@ class DefaultGithubRepository(private val githubRemoteDataSource: GithubDataSour
 
     override suspend fun getMoreUser(url: String): ResultData<UserListDataBean> {
         return githubRemoteDataSource.getMoreUser(url)
+    }
+
+    override suspend fun getGithubToken(url: String): ResultData<GithubLoginToken> {
+        return githubRemoteDataSource.getGithubToken(url)
+    }
+
+    override suspend fun getMyInfo(token: String): ResultData<User> {
+        return githubRemoteDataSource.getMyInfo(token)
     }
 }

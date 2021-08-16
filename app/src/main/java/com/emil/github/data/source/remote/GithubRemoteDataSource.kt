@@ -1,10 +1,7 @@
 package com.emil.github.data.source.remote
 
 import android.util.Log
-import com.emil.github.data.ResultData
-import com.emil.github.data.User
-import com.emil.github.data.UserListData
-import com.emil.github.data.UserListDataBean
+import com.emil.github.data.*
 import com.emil.github.data.source.GithubDataSource
 import com.emil.github.network.GithubApi
 import com.squareup.moshi.JsonAdapter
@@ -61,6 +58,26 @@ object GithubRemoteDataSource: GithubDataSource {
             )
             ResultData.Success(result)
 
+        } catch (e: Exception) {
+            ResultData.Error(e)
+        }
+    }
+
+    override suspend fun getGithubToken(url: String): ResultData<GithubLoginToken> {
+        return try {
+            val result = GithubApi.retrofitService.getGithubToken(url = url)
+            Log.e("tttttttttt", "token result = $result")
+            ResultData.Success(result)
+        } catch (e: Exception) {
+            ResultData.Error(e)
+        }
+    }
+
+    override suspend fun getMyInfo(token: String): ResultData<User> {
+        return try {
+            val result = GithubApi.retrofitService.getMyInfo(token)
+            Log.e("tttttttttt", "MyInfo result = $result")
+            ResultData.Success(result)
         } catch (e: Exception) {
             ResultData.Error(e)
         }
