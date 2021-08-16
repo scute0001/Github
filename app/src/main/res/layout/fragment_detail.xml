@@ -1,0 +1,136 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="data"
+            type="com.emil.github.data.User"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.emil.github.ui.detail.DetailFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="@dimen/size_icon_close"
+            android:layout_height="@dimen/size_icon_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/icon_close_48"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginStart="@dimen/margin_large" />
+
+        <ImageView
+            android:id="@+id/img_user_photo"
+            android:layout_width="@dimen/size_pic_large"
+            android:layout_height="@dimen/size_pic_large"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_h"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintStart_toStartOf="@+id/guideline_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:imageDetailUrl="@{data.avatarUrl}"/>
+
+        <TextView
+            android:id="@+id/text_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_h"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintStart_toStartOf="@+id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/img_user_photo"
+            app:setString="@{data.name}"/>
+
+        <ImageView
+            android:id="@+id/img_icon_user"
+            android:layout_width="@dimen/size_pic"
+            android:layout_height="@dimen/size_pic"
+            android:src="@drawable/icon_person_48"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline_h"
+            android:layout_marginStart="@dimen/margin_detail"
+            android:layout_marginTop="@dimen/margin_large" />
+
+        <TextView
+            android:id="@+id/text_detail_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            app:layout_constraintBottom_toBottomOf="@id/img_icon_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_icon_user"
+            app:layout_constraintTop_toTopOf="@id/img_icon_user"
+            app:fullNameSplit="@{data.name}"/>
+
+        <ImageView
+            android:id="@+id/img_icon_place"
+            android:layout_width="@dimen/size_pic"
+            android:layout_height="@dimen/size_pic"
+            android:src="@drawable/icon_place_48"
+            app:layout_constraintEnd_toEndOf="@+id/img_icon_user"
+            app:layout_constraintStart_toStartOf="@+id/img_icon_user"
+            app:layout_constraintTop_toBottomOf="@+id/img_icon_user"
+            android:layout_marginTop="@dimen/margin_large" />
+
+        <TextView
+            android:id="@+id/text_detail_place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            app:layout_constraintBottom_toBottomOf="@id/img_icon_place"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_icon_place"
+            app:layout_constraintTop_toTopOf="@id/img_icon_place"
+            app:setString="@{data.location}"/>
+
+        <ImageView
+            android:id="@+id/img_icon_link"
+            android:layout_width="@dimen/size_pic"
+            android:layout_height="@dimen/size_pic"
+            android:src="@drawable/icon_link_48"
+            app:layout_constraintEnd_toEndOf="@+id/img_icon_place"
+            app:layout_constraintStart_toStartOf="@+id/img_icon_place"
+            app:layout_constraintTop_toBottomOf="@+id/img_icon_place"
+            android:layout_marginTop="@dimen/margin_large" />
+
+        <TextView
+            android:id="@+id/text_detail_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            app:layout_constraintBottom_toBottomOf="@id/img_icon_link"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_icon_link"
+            app:layout_constraintTop_toTopOf="@id/img_icon_link"
+            app:setString="@{data.blog}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
