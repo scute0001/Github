@@ -10,6 +10,7 @@ import com.emil.github.data.User
 import com.emil.github.data.UserListData
 import com.emil.github.data.source.GithubRepository
 import com.emil.github.network.LoadApiStatus
+import com.emil.github.util.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -57,7 +58,7 @@ class UsersViewModel(
                 githubRepository.getUserDetail(url)
 
             }.let { result ->
-                Log.d("tttttttt", "$result")
+                Logger.d("userDetail = $result")
                 _userDetail.value = when(result) {
                     is ResultData.Success -> {
                         _error.value = null
@@ -93,14 +94,13 @@ class UsersViewModel(
                     githubRepository.getMoreUser(pagingUrl)
 
                 }.let { result ->
-                    Log.d("tttttttt", "more $result")
+                    Logger.d("get more = $result")
                     _usersList.value = when(result) {
                         is ResultData.Success -> {
                             _error.value = null
                             _status.value = LoadApiStatus.DONE
                             result.data.pagingUrl?.let {
                                 pagingUrl = it
-                                Log.e("ttttttttt", "${result.data.pagingUrl}")
                             }
                             val newList: MutableList<UserListData> = userList.value!!.toMutableList()
                             result.data.data?.let { newList.addAll(it) }
@@ -135,14 +135,13 @@ class UsersViewModel(
                 githubRepository.getUsers(since)
 
             }.let { result ->
-                Log.d("tttttttt", "$result")
+                Logger.d("getUsers = $result")
                 _usersList.value = when(result) {
                     is ResultData.Success -> {
                         _error.value = null
                         _status.value = LoadApiStatus.DONE
                         result.data.pagingUrl?.let {
                             pagingUrl = it
-                            Log.e("ttttttttt", "${result.data.pagingUrl}")
                         }
                         result.data.data
                     }

@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.emil.github.databinding.ActivityMainBinding
 import com.emil.github.ext.getVmFactory
+import com.emil.github.util.Logger
 import com.emil.github.util.PageInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -28,14 +29,14 @@ class MainActivity : AppCompatActivity() {
                     viewModel.setCurrentPage(PageInfo.USERS)
                     return@OnNavigationItemSelectedListener true
                 }
-                Log.d("tttttttt", "PageInfo.USERS")
+                Logger.i("PageInfo.USERS ,itemID = ${item.itemId}")
             }
             R.id.navigation_mine -> {
                 if (viewModel.currentPage != PageInfo.MY_INFO) {
                     viewModel.setCurrentPage(PageInfo.MY_INFO)
                     return@OnNavigationItemSelectedListener true
                 }
-                Log.d("tttttttt", "PageInfo.MY_INFO")
+                Logger.i("PageInfo.MY_INFO ,itemID = ${item.itemId}")
             }
         }
         false

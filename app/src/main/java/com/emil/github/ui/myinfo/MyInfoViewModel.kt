@@ -12,6 +12,7 @@ import com.emil.github.data.User
 import com.emil.github.data.source.GithubRepository
 import com.emil.github.network.LoadApiStatus
 import com.emil.github.util.GithubLoginManager
+import com.emil.github.util.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,11 +37,11 @@ class MyInfoViewModel(private val githubRepository: GithubRepository
 
 
     fun getGithubCode(url: String) {
-        Log.e("ttttttttt", "url = $url")
+        Logger.w("webView get code\nurl = $url")
         val uri = Uri.parse(url)
         if (url.contains("code")) {
             _githubCode = uri.getQueryParameter("code") ?: ""
-            Log.e("tttttttttt", _githubCode)
+            Logger.w("code=$_githubCode")
             val tokenUrl = GithubLoginManager.getTokenUrl(_githubCode)
             getGithubToken(tokenUrl)
         }
@@ -54,7 +55,7 @@ class MyInfoViewModel(private val githubRepository: GithubRepository
                 githubRepository.getGithubToken(url)
 
             }.let { result ->
-                Log.d("tttttttt", "$result")
+                Logger.d("userToken = $result")
                 _userToken = when(result) {
                     is ResultData.Success -> {
                         _error.value = null
@@ -89,7 +90,6 @@ class MyInfoViewModel(private val githubRepository: GithubRepository
             withContext(Dispatchers.IO) {
                 githubRepository.getMyInfo("${userToken.tokenType} ${userToken.accessToken}")
             }.let { result ->
-                Log.d("tttttttt", "$result")
                 _myInfo.value = when(result) {
                     is ResultData.Success -> {
                         _error.value = null

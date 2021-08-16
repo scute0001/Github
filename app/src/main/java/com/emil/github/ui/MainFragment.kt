@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.emil.github.MainActivityViewModel
 import com.emil.github.databinding.FragmentMainBinding
-import com.emil.github.ext.getVmFactory
+import com.emil.github.util.Logger
 import com.emil.github.util.PageInfo
 
 class MainFragment : Fragment() {
@@ -35,7 +34,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
         viewModel.currentPage.observe(viewLifecycleOwner, Observer {
-            Log.d("tttttttttt", "observe $it ${it.pageCode}")
+            Logger.i("observe page=$it pagecode=${it.pageCode}")
             it?.let {
                 when(it) {
                     PageInfo.USERS -> viewPager.setCurrentItem(PageInfo.USERS.pageCode, true)

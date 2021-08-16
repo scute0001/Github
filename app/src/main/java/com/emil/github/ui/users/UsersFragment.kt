@@ -17,6 +17,7 @@ import com.emil.github.databinding.ItemUserDataBinding
 import com.emil.github.ext.getVmFactory
 import com.emil.github.network.LoadApiStatus
 import com.emil.github.ui.MainFragmentDirections
+import com.emil.github.util.Logger
 
 class UsersFragment : Fragment() {
     lateinit var binding: FragmentUsersBinding
@@ -48,7 +49,7 @@ class UsersFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState) // check at list bottom
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Log.i("addOnScrollListener", "end list")
+                    Logger.i("end list and Start Loading more...")
                     viewModel.getMoreUsers()
                 }
             }
@@ -58,7 +59,6 @@ class UsersFragment : Fragment() {
     private fun setupObserver() {
         viewModel.userList.observe(viewLifecycleOwner, Observer { userList ->
             userList?.let {
-                Log.d("ttttttttt", "$it")
                 adapter.submitList(it)
                 adapter.notifyDataSetChanged()
             }

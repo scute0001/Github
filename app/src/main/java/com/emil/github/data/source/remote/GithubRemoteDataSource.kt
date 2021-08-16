@@ -4,6 +4,7 @@ import android.util.Log
 import com.emil.github.data.*
 import com.emil.github.data.source.GithubDataSource
 import com.emil.github.network.GithubApi
+import com.emil.github.util.Logger
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -54,8 +55,9 @@ object GithubRemoteDataSource: GithubDataSource {
             }
             val result = UserListDataBean(
                 data = response.body(),
-                pagingUrl = url
+                pagingUrl = nextUrl
             )
+            Logger.w("API gerMoreUser paging url=${result.pagingUrl}")
             ResultData.Success(result)
 
         } catch (e: Exception) {
@@ -66,7 +68,7 @@ object GithubRemoteDataSource: GithubDataSource {
     override suspend fun getGithubToken(url: String): ResultData<GithubLoginToken> {
         return try {
             val result = GithubApi.retrofitService.getGithubToken(url = url)
-            Log.e("tttttttttt", "token result = $result")
+            Logger.d("token result = $result")
             ResultData.Success(result)
         } catch (e: Exception) {
             ResultData.Error(e)
@@ -76,7 +78,7 @@ object GithubRemoteDataSource: GithubDataSource {
     override suspend fun getMyInfo(token: String): ResultData<User> {
         return try {
             val result = GithubApi.retrofitService.getMyInfo(token)
-            Log.e("tttttttttt", "MyInfo result = $result")
+            Logger.d("MyInfo result = $result")
             ResultData.Success(result)
         } catch (e: Exception) {
             ResultData.Error(e)
