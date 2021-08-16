@@ -1,6 +1,5 @@
 package com.emil.github.util
 
-import android.annotation.SuppressLint
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -8,7 +7,6 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.emil.github.GithubApplication
 import com.emil.github.R
 
 @BindingAdapter("imageUrl")
@@ -43,7 +41,7 @@ fun bindName(textView: TextView, fullName: String?) {
         val name = fullName.split(" ")
         textView.text = name[0]
     } else {
-        textView.text = GithubApplication.instance.getString(R.string.no_data)
+        textView.text = SystemUtilTool.getString(R.string.no_data)
     }
 }
 
@@ -52,6 +50,6 @@ fun bindString(textView: TextView, string: String?) {
     if (string != null && string != "") {
         textView.text = string
     } else {
-        textView.text = GithubApplication.instance.getString(R.string.no_data)
+        textView.text = SystemUtilTool.getString(R.string.no_data)
     }
 }
