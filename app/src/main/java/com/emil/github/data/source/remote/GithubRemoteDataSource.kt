@@ -1,16 +1,26 @@
 package com.emil.github.data.source.remote
 
-import android.util.Log
+import com.emil.github.R
 import com.emil.github.data.*
 import com.emil.github.data.source.GithubDataSource
 import com.emil.github.network.GithubApi
 import com.emil.github.util.Logger
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
+import com.emil.github.util.SystemUtilTool.getString
+import com.emil.github.util.SystemUtilTool.isInternetConnected
+import com.emil.github.util.SystemUtilTool.showToast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 object GithubRemoteDataSource: GithubDataSource {
     override suspend fun getUsers(since: Int): ResultData<UserListDataBean> {
+
+        if (!isInternetConnected()) {
+            withContext(Dispatchers.Main) {
+                showToast(getString(R.string.internet_is_not_connected))
+            }
+            return ResultData.Fail(getString(R.string.internet_is_not_connected))
+        }
+
         return try {
             val response = GithubApi.retrofitService.getUsers(since)
             val header = response.headers()["link"]
@@ -33,6 +43,14 @@ object GithubRemoteDataSource: GithubDataSource {
     }
 
     override suspend fun getUserDetail(url: String): ResultData<User> {
+
+        if (!isInternetConnected()) {
+            withContext(Dispatchers.Main) {
+                showToast(getString(R.string.internet_is_not_connected))
+            }
+            return ResultData.Fail(getString(R.string.internet_is_not_connected))
+        }
+
         return try {
             val result = GithubApi.retrofitService.getUserDetail(url)
             ResultData.Success(result)
@@ -43,6 +61,14 @@ object GithubRemoteDataSource: GithubDataSource {
     }
 
     override suspend fun getMoreUser(url: String): ResultData<UserListDataBean> {
+
+        if (!isInternetConnected()) {
+            withContext(Dispatchers.Main) {
+                showToast(getString(R.string.internet_is_not_connected))
+            }
+            return ResultData.Fail(getString(R.string.internet_is_not_connected))
+        }
+
         return try {
             val response = GithubApi.retrofitService.getMoreUser(url)
             val header = response.headers()["link"]
@@ -66,6 +92,14 @@ object GithubRemoteDataSource: GithubDataSource {
     }
 
     override suspend fun getGithubToken(url: String): ResultData<GithubLoginToken> {
+
+        if (!isInternetConnected()) {
+            withContext(Dispatchers.Main) {
+                showToast(getString(R.string.internet_is_not_connected))
+            }
+            return ResultData.Fail(getString(R.string.internet_is_not_connected))
+        }
+
         return try {
             val result = GithubApi.retrofitService.getGithubToken(url = url)
             Logger.d("token result = $result")
@@ -76,6 +110,14 @@ object GithubRemoteDataSource: GithubDataSource {
     }
 
     override suspend fun getMyInfo(token: String): ResultData<User> {
+
+        if (!isInternetConnected()) {
+            withContext(Dispatchers.Main) {
+                showToast(getString(R.string.internet_is_not_connected))
+            }
+            return ResultData.Fail(getString(R.string.internet_is_not_connected))
+        }
+
         return try {
             val result = GithubApi.retrofitService.getMyInfo(token)
             Logger.d("MyInfo result = $result")

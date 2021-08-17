@@ -86,45 +86,49 @@ class UsersViewModel(
     }
 
     fun getMoreUsers() {
+
         viewModelScope.launch {
-            viewModelScope.launch {
-                _status.value = LoadApiStatus.LOADING
+            _status.value = LoadApiStatus.LOADING
 
-                withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
+                if (pagingUrl.isNotEmpty()) {
                     githubRepository.getMoreUser(pagingUrl)
+                } else {
+                    githubRepository.getUsers(sincePage.value ?: 0)
+                }
 
-                }.let { result ->
-                    Logger.d("get more = $result")
-                    _usersList.value = when(result) {
-                        is ResultData.Success -> {
-                            _error.value = null
-                            _status.value = LoadApiStatus.DONE
-                            result.data.pagingUrl?.let {
-                                pagingUrl = it
-                            }
-                            val newList: MutableList<UserListData> = userList.value!!.toMutableList()
-                            result.data.data?.let { newList.addAll(it) }
-                            newList
+            }.let { result ->
+                Logger.d("get more = $result")
+                _usersList.value = when(result) {
+                    is ResultData.Success -> {
+                        _error.value = null
+                        _status.value = LoadApiStatus.DONE
+                        result.data.pagingUrl?.let {
+                            pagingUrl = it
                         }
-                        is ResultData.Fail -> {
-                            _error.value = result.error
-                            _status.value = LoadApiStatus.ERROR
-                            null
-                        }
-                        is ResultData.Error -> {
-                            _error.value = result.exception.toString()
-                            _status.value = LoadApiStatus.ERROR
-                            null
-                        }
-                        else -> {
-                            _error.value = "Unknown Error"
-                            _status.value = LoadApiStatus.ERROR
-                            null
-                        }
+                        val newList: MutableList<UserListData> = userList.value?.toMutableList() ?: mutableListOf()
+                        result.data.data?.let { newList.addAll(it) }
+                        newList
+                    }
+                    is ResultData.Fail -> {
+                        _error.value = result.error
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                    is ResultData.Error -> {
+                        _error.value = result.exception.toString()
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                    else -> {
+                        _error.value = "Unknown Error"
+                        _status.value = LoadApiStatus.ERROR
+                        null
                     }
                 }
             }
         }
+
     }
 
     private fun getUsers(since: Int) {

@@ -2,9 +2,7 @@ package com.emil.github.ui.myinfo
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +12,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.emil.github.R
 import com.emil.github.databinding.FragmentMyInfoBinding
 import com.emil.github.ext.getVmFactory
 import com.emil.github.network.LoadApiStatus
 import com.emil.github.util.GithubLoginManager
-import java.util.concurrent.TimeUnit
 
 class MyInfoFragment : Fragment() {
     val viewModel by viewModels<MyInfoViewModel> { getVmFactory() }
@@ -50,10 +46,10 @@ class MyInfoFragment : Fragment() {
         viewModel.myInfo.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.user = it
-                binding.clMyInfo.visibility = View.VISIBLE
+                binding.svMyInfo.visibility = View.VISIBLE
                 binding.clGithubLogin.visibility = View.GONE
             } else {
-                binding.clMyInfo.visibility = View.GONE
+                binding.svMyInfo.visibility = View.GONE
                 binding.clGithubLogin.visibility = View.VISIBLE
             }
         })
